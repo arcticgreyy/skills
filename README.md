@@ -2,6 +2,24 @@
 
 Custom skills for Claude Code and compatible AI agent environments, covering session management and paid media workflows.
 
+## The paid media agent suite
+
+These skills are part of a three-piece toolkit for building a Claude-powered paid media workflow:
+
+| Component | What it does |
+|---|---|
+| **[paid-media-mcp](https://github.com/arcticgreyy/paid-media-mcp)** | MCP server — connects Claude to your campaign data, team structure, performance history, and institutional knowledge |
+| **[paid-media-mcp-setup skills](https://github.com/arcticgreyy/skills/tree/main/paid-media-mcp-setup)** ← this repo | Setup wizard and data import skills — populate your MCP data files and keep them current |
+| **[paid-media skills](https://github.com/arcticgreyy/skills/tree/main/paid-media)** ← this repo | Campaign strategy and execution skills — DV360, DCO, PPC, CM360 click trackers, and more |
+
+**How they fit together:**
+1. Set up [paid-media-mcp](https://github.com/arcticgreyy/paid-media-mcp) — clone the repo and fill in your data files
+2. Run `/paid-media/setup` (from this repo) to walk through populating each data domain
+3. Use `/paid-media/import-data` on a regular cadence to keep campaign and performance data current
+4. Use `/paid-media/*` skills for day-to-day campaign work — they use your MCP data automatically when it's connected
+
+---
+
 ## Skills
 
 ### `productivity`
@@ -14,13 +32,13 @@ General-purpose productivity and knowledge management skills:
 **Setup**: For `save-session`, configure your knowledge base path in the skill file (default: `~/knowledge-base/_meta/sessions/`). Optionally configure a reindex command if your knowledge base supports it.
 
 ### `paid-media`
-A collection of skills for paid media campaign management:
+Campaign strategy and execution skills. These work standalone, but give significantly richer output when [paid-media-mcp](https://github.com/arcticgreyy/paid-media-mcp) is connected — Claude can reference your actual campaign data, team structure, historical performance, and institutional knowledge instead of working from general principles.
 
 - **analyze-performance**: Analyze campaign performance metrics
 - **attribution-report**: Generate attribution reports
 - **bulk-upload**: Handle bulk campaign uploads
 - **create-campaign**: Create new campaigns
-- **create-cm360-ct**: Generate CM360 click tracker bulk sheets for walled-garden platforms
+- **create-cm360-ct**: Generate CM360 click tracker bulk sheets for walled-garden platforms (Meta, TikTok, LinkedIn)
 - **create-report**: Generate campaign reports
 - **dv360**: Enterprise display campaign strategy using the full GMP stack
 - **dv360-dynamic-display**: Dynamic Creative Optimization (DCO) using DV360 Ad Canvas and CM360
@@ -30,10 +48,10 @@ A collection of skills for paid media campaign management:
 **Path**: `paid-media/{skill-name}/SKILL.md`
 
 ### `paid-media-mcp-setup`
-Skills for setting up and configuring paid media MCP integration:
+Skills for setting up and maintaining the [paid-media-mcp](https://github.com/arcticgreyy/paid-media-mcp) server. Run these from inside the `paid-media-mcp` project directory.
 
-- **import-data**: Import data for paid media campaigns
-- **setup**: Set up paid media MCP integration
+- **setup**: Interactive wizard that scans your `data/` directory, identifies what's missing, and walks through populating each domain — from BigQuery, pasted platform exports, Google Sheets, or plain conversation
+- **import-data**: Refresh campaign metadata or performance data in an existing setup — designed to run regularly (weekly or monthly) without touching anything else
 
 **Path**: `paid-media-mcp-setup/{skill-name}/SKILL.md`
 
