@@ -1,6 +1,6 @@
 # Skills Collection
 
-Custom skills for Claude Code and compatible AI agent environments, covering session management and paid media workflows.
+Custom skills for Claude Code and compatible AI agent environments, covering session management, paid media workflows, and PMO / project management operations.
 
 ## The paid media agent suite
 
@@ -21,6 +21,15 @@ These skills are part of a three-piece toolkit for building a Claude-powered pai
 ---
 
 ## Skills
+
+### `pmo`
+Project management and operations skills:
+
+- **jira-triage**: Validates data quality on newly submitted Jira tickets, searches for historical duplicates via JQL, drafts a professional triage comment, and proposes a status transition — with a mandatory human approval gate before anything is posted. Triggers on ticket IDs (e.g. `PROJ-123`), "triage this ticket", "review this Jira", and similar phrases.
+
+**Path**: `pmo/{skill-name}/SKILL.md`
+
+**Setup**: Before first use, provide your project key, required fields list, issue types, and status mappings (In Progress / Needs Info / Canceled equivalents). The skill prompts for any missing config at runtime.
 
 ### `productivity`
 General-purpose productivity and knowledge management skills:
@@ -95,6 +104,9 @@ Each skill lives in its own directory with a `SKILL.md` file. To use:
 │   ├── import-data/
 │   │   └── SKILL.md
 │   └── setup/
+│       └── SKILL.md
+├── pmo/
+│   └── jira-triage/
 │       └── SKILL.md
 └── productivity/
     └── save-session/
