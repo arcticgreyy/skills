@@ -2,21 +2,23 @@
 
 Custom skills for Claude Code and compatible AI agent environments, covering session management, paid media workflows, and PMO / project management operations.
 
-## The paid media agent suite
+## The paid media AI suite
 
-These skills are part of a three-piece toolkit for building a Claude-powered paid media workflow:
+These skills are part of a four-component toolkit for building a Claude-powered paid media workflow:
 
 | Component | What it does |
 |---|---|
-| **[paid-media-mcp](https://github.com/arcticgreyy/paid-media-mcp)** | MCP server — connects Claude to your campaign data, team structure, performance history, and institutional knowledge |
-| **[paid-media-mcp-setup skills](https://github.com/arcticgreyy/skills/tree/main/paid-media-mcp-setup)** ← this repo | Setup wizard and data import skills — populate your MCP data files and keep them current |
-| **[paid-media skills](https://github.com/arcticgreyy/skills/tree/main/paid-media)** ← this repo | Campaign strategy and execution skills — DV360, DCO, PPC, CM360 click trackers, and more |
+| **[paid-media-schema](https://github.com/arcticgreyy/paid-media-schema)** | Shared data schema — identity namespace registry, BigQuery DDL, and JSON-file schemas for platform-agnostic attribution |
+| **[paid-media-mcp](https://github.com/arcticgreyy/paid-media-mcp)** | MCP server — connects Claude to campaign data, identity signals, attribution results, and autonomous agent outputs |
+| **[paid-media-agent](https://github.com/arcticgreyy/paid-media-agent)** | Autonomous agents — Watchdog (data governance), Analyst (MTA modeling), Operator (media execution) running on schedule |
+| **[paid-media skills](https://github.com/arcticgreyy/skills/tree/main/paid-media)** ← this repo | Interactive skills — day-to-day campaign strategy and execution via Claude Code |
 
 **How they fit together:**
-1. Set up [paid-media-mcp](https://github.com/arcticgreyy/paid-media-mcp) — clone the repo and fill in your data files
-2. Run `/paid-media/setup` (from this repo) to walk through populating each data domain
-3. Use `/paid-media/import-data` on a regular cadence to keep campaign and performance data current
-4. Use `/paid-media/*` skills for day-to-day campaign work — they use your MCP data automatically when it's connected
+1. Deploy [paid-media-schema](https://github.com/arcticgreyy/paid-media-schema) — run the BigQuery DDL to create your data tables
+2. Set up [paid-media-mcp](https://github.com/arcticgreyy/paid-media-mcp) — clone, fill in your data files or connect BigQuery
+3. Run `/paid-media-mcp-setup/setup` to populate your MCP data domains
+4. Deploy [paid-media-agent](https://github.com/arcticgreyy/paid-media-agent) on Cloud Run — for automated monitoring, modeling, and optimization
+5. Use `/paid-media/*` skills for day-to-day campaign work — they use your MCP data automatically when connected
 
 ---
 
@@ -43,16 +45,31 @@ General-purpose productivity and knowledge management skills:
 ### `paid-media`
 Campaign strategy and execution skills. These work standalone, but give significantly richer output when [paid-media-mcp](https://github.com/arcticgreyy/paid-media-mcp) is connected — Claude can reference your actual campaign data, team structure, historical performance, and institutional knowledge instead of working from general principles.
 
-- **analyze-performance**: Analyze campaign performance metrics
-- **attribution-report**: Generate attribution reports
-- **bulk-upload**: Handle bulk campaign uploads
-- **create-campaign**: Create new campaigns
-- **create-cm360-ct**: Generate CM360 click tracker bulk sheets for walled-garden platforms (Meta, TikTok, LinkedIn)
-- **create-report**: Generate campaign reports
-- **dv360**: Enterprise display campaign strategy using the full GMP stack
+**Strategy & Planning**
+- **media-plan**: Build data-driven media plans — channel mix, budget allocation, forecasting, flighting strategy
+- **paid-social**: Meta, LinkedIn, and TikTok campaign strategy, setup, and optimization
+- **ppc**: Google Ads / paid search campaign strategy and optimization
+- **dv360**: Enterprise display and programmatic campaign strategy using the full GMP stack
 - **dv360-dynamic-display**: Dynamic Creative Optimization (DCO) using DV360 Ad Canvas and CM360
-- **optimize-campaign**: Optimize existing campaigns
-- **ppc**: Google Ads / PPC campaign strategy and optimization
+
+**Execution & Trafficking**
+- **create-campaign**: Create campaign briefs or GMP bulk upload files (DV360 SDF, SA360 Bulksheet, CM360)
+- **bulk-upload**: Generate ready-to-upload GMP bulk files for DV360, SA360, or CM360
+- **create-cm360-ct**: Generate CM360 click tracker bulk sheets for walled-garden platforms (Meta, TikTok, LinkedIn)
+
+**Audience & Creative**
+- **audience-strategy**: First-party audiences, lookalike strategy, suppression logic, B2B account-based targeting
+- **creative-strategy**: Creative testing methodology, asset specs, performance diagnosis, creative roadmap
+
+**Measurement & Attribution**
+- **measurement-setup**: Tag audit, pixel health, Conversion API (CAPI) setup, data layer review
+- **attribution-report**: Attribution model analysis, signal quality assessment, cross-channel comparison
+
+**Reporting & Optimization**
+- **analyze-performance**: Campaign performance analysis with KPI scorecard, trend analysis, and recommendations
+- **optimize-campaign**: Campaign audit and prioritized optimization action plan
+- **budget-pacing**: Pacing analysis, over/under-pacing diagnosis, daily budget adjustments
+- **create-report**: Generate audience-appropriate reports (executive, media team, client, internal)
 
 **Path**: `paid-media/{skill-name}/SKILL.md`
 
