@@ -71,6 +71,17 @@ Campaign strategy and execution skills. These work standalone, but give signific
 
 **Path**: `paid-media/{skill-name}/SKILL.md`
 
+### `paid-media-agent`
+Human-in-the-loop (HITL) governance workflows that bridge the Interactive Layer (MCP tools) and the Autonomous Layer (Analyst/Operator cognitive loops). Use these when autonomous agent outputs require human review before the Operator executes capital-affecting actions.
+
+- **review_saturation_brief**: Structured protocol for reviewing the Analyst agent's channel saturation output — cross-validates the Hill function's recommended budget cap against live MCP data (`get_channel_efficiency`, `get_pacing_report`), applies the cognitive discrepancy framework (strategic context vs. math), and produces a sign-off matrix for accepting, partially overriding, or deferring capital pruning
+- **approve_flighting_schedule**: Authorization gate for adstock-driven pulsing schedules — frames the COOL_DOWN trade-off explicitly, runs pre-flight validation (platform floors, pacing status, tier-1 account activity), and produces the exact task27.v1 JSON payload needed to route the flighting decision through `execute_system_budget_reallocation`
+- **override_attribution_bias**: Forensic exception handler for Trap A (CRM overwrite loop) and Trap B (organic surge masking paid lift) — guides the investigation from Watchdog alert → `data_attribution_anomalies` audit → `v_attribution_correction_weights` multiplier retrieval → Meridian prior injection, ensuring contaminated data doesn't drive the next optimization cycle
+
+**Path**: `paid-media-agent/{skill-name}/SKILL.md`
+
+**Requirements**: `paid-media-mcp` server connected in BigQuery mode (`BIGQUERY_PROJECT_ID` set); `paid-media-agent` deployed and writing to `watchdog_alerts`, `analyst_insights`, `data_attribution_anomalies`.
+
 ### `paid-media-mcp-setup`
 Skills for setting up and maintaining the [paid-media-mcp](https://github.com/arcticgreyy/paid-media-mcp) server. Run these from inside the `paid-media-mcp` project directory.
 
@@ -94,6 +105,13 @@ Each skill lives in its own directory with a `SKILL.md` file. To use:
 ```
 .
 ├── README.md
+├── paid-media-agent/
+│   ├── review_saturation_brief/
+│   │   └── SKILL.md
+│   ├── approve_flighting_schedule/
+│   │   └── SKILL.md
+│   └── override_attribution_bias/
+│       └── SKILL.md
 ├── paid-media/
 │   ├── analyze-performance/
 │   │   └── SKILL.md
