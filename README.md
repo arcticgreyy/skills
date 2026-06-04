@@ -4,21 +4,19 @@ Custom skills for Claude Code and compatible AI agent environments, covering ses
 
 ## The paid media AI suite
 
-These skills are part of a four-component toolkit for building a Claude-powered paid media workflow:
+These skills are part of a three-component toolkit for building a Claude-powered paid media workflow:
 
 | Component | What it does |
 |---|---|
-| **[paid-media-schema](https://github.com/arcticgreyy/paid-media-schema)** | Shared data schema — identity namespace registry, BigQuery DDL, and JSON-file schemas for platform-agnostic attribution |
+| **[paid-media-agent](https://github.com/arcticgreyy/paid-media-agent)** | Autonomous agents + BigQuery schema DDL — Watchdog (data governance), Analyst (MTA + MMM + saturation/adstock modeling), Operator (media execution) on Cloud Run; schema in `schema/bigquery/` |
 | **[paid-media-mcp](https://github.com/arcticgreyy/paid-media-mcp)** | MCP server — connects Claude to campaign data, identity signals, attribution results, and autonomous agent outputs |
-| **[paid-media-agent](https://github.com/arcticgreyy/paid-media-agent)** | Autonomous agents — Watchdog (data governance), Analyst (MTA modeling), Operator (media execution) running on schedule |
 | **[paid-media skills](https://github.com/arcticgreyy/skills/tree/main/paid-media)** ← this repo | Interactive skills — day-to-day campaign strategy and execution via Claude Code |
 
 **How they fit together:**
-1. Deploy [paid-media-schema](https://github.com/arcticgreyy/paid-media-schema) — run the BigQuery DDL to create your data tables
+1. Deploy [paid-media-agent](https://github.com/arcticgreyy/paid-media-agent) — run the BigQuery DDL in `schema/bigquery/` to create your data tables, then deploy agents to Cloud Run
 2. Set up [paid-media-mcp](https://github.com/arcticgreyy/paid-media-mcp) — clone, fill in your data files or connect BigQuery
 3. Run `/paid-media-mcp-setup/setup` to populate your MCP data domains
-4. Deploy [paid-media-agent](https://github.com/arcticgreyy/paid-media-agent) on Cloud Run — for automated monitoring, modeling, and optimization
-5. Use `/paid-media/*` skills for day-to-day campaign work — they use your MCP data automatically when connected
+4. Use `/paid-media/*` skills for day-to-day campaign work — they use your MCP data automatically when connected
 
 ---
 
@@ -101,6 +99,10 @@ Each skill lives in its own directory with a `SKILL.md` file. To use:
 │   │   └── SKILL.md
 │   ├── attribution-report/
 │   │   └── SKILL.md
+│   ├── audience-strategy/
+│   │   └── SKILL.md
+│   ├── budget-pacing/
+│   │   └── SKILL.md
 │   ├── bulk-upload/
 │   │   └── SKILL.md
 │   ├── create-campaign/
@@ -109,11 +111,19 @@ Each skill lives in its own directory with a `SKILL.md` file. To use:
 │   │   └── SKILL.md
 │   ├── create-report/
 │   │   └── SKILL.md
+│   ├── creative-strategy/
+│   │   └── SKILL.md
 │   ├── dv360/
 │   │   └── SKILL.md
 │   ├── dv360-dynamic-display/
 │   │   └── SKILL.md
+│   ├── measurement-setup/
+│   │   └── SKILL.md
+│   ├── media-plan/
+│   │   └── SKILL.md
 │   ├── optimize-campaign/
+│   │   └── SKILL.md
+│   ├── paid-social/
 │   │   └── SKILL.md
 │   └── ppc/
 │       └── SKILL.md
